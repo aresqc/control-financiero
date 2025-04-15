@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario Banco</title>
+</head>
+<body>
+    <h1>Nuevo Banco</h1>
+    <form th:action="@{/bancos/guardar}" method="post" th:object="${banco}">
+        <input type="text" th:field="*{nombre}" placeholder="Nombre del banco"/>
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
