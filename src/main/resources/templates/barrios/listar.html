@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Barrios</title>
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Barrios</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/barrios/form" class="btn btn-primary mb-3">Nuevo Barrio</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Ciudad</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="barrio : ${barrios}">
+            <td th:text="${barrio.id}">1</td>
+            <td th:text="${barrio.descripcion}">Ejemplo</td>
+            <td th:text="${barrio.ciudad.descripcion}">Ciudad</td>
+            <td>
+                <a th:href="@{/barrios/editar/{id}(id=${barrio.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/barrios/eliminar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${barrio.id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

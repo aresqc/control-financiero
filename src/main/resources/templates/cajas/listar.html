@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Cajas</title>
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Cajas</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/cajas/form" class="btn btn-primary mb-3">Nueva Caja</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="caja : ${cajas}">
+            <td th:text="${caja.idCaja}">1</td>
+            <td th:text="${caja.descripcion}">Caja A</td>
+            <td th:text="${caja.estado}">Activo</td>
+            <td>
+                <a th:href="@{/cajas/editar/{id}(id=${caja.idCaja})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/cajas/eliminar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${caja.idCaja}"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

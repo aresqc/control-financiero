@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Listado de Bancos</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Listado de Bancos</h1>
-    <table>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Bancos</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/bancos/form" class="btn btn-primary mb-3">Agregar nuevo banco</a>
+
+    <table class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="banco : ${bancos}">
-                <td th:text="${banco.id}"></td>
-                <td th:text="${banco.nombre}"></td>
-            </tr>
+        <tr th:each="banco : ${bancos}">
+            <td th:text="${banco.id}"></td>
+            <td th:text="${banco.nombre}"></td>
+            <td th:text="${banco.descripcion}"></td>
+            <td th:text="${banco.telefono}"></td>
+            <td th:text="${banco.direccion}"></td>
+            <td>
+                <a th:href="@{/bancos/editar/{id}(id=${banco.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/bancos/eliminar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${banco.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar banco?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
-    <a href="/bancos/form">Agregar nuevo banco</a>
+
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
 </body>
 </html>

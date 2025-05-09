@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Compra</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${compra.id == null ? 'Nueva Compra' : 'Editar Compra'}"></h2>
+
+    <form th:action="@{/compras/guardar}" th:object="${compra}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Orden de Compra:</label>
+            <select th:field="*{ordenCompra}" class="form-control">
+                <option th:each="o : ${ordenes}" th:value="${o.id}" th:text="${o.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Proveedor:</label>
+            <select th:field="*{proveedor}" class="form-control">
+                <option th:each="p : ${proveedores}" th:value="${p.id}" th:text="${p.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Empleado:</label>
+            <select th:field="*{empleado}" class="form-control">
+                <option th:each="e : ${empleados}" th:value="${e.id}" th:text="${e.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Sucursal:</label>
+            <select th:field="*{sucursal}" class="form-control">
+                <option th:each="s : ${sucursales}" th:value="${s.id}" th:text="${s.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Condición:</label>
+            <select th:field="*{condicion}" class="form-control">
+                <option th:each="c : ${condiciones}" th:value="${c.id}" th:text="${c.descripcion}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Observación:</label>
+            <textarea th:field="*{observacion}" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha:</label>
+            <input type="date" th:field="*{fecha}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Nro. Factura:</label>
+            <input type="text" th:field="*{nroFactura}" maxlength="15" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Nro. Timbrado:</label>
+            <input type="text" th:field="*{nroTimbrado}" maxlength="10" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Estado:</label>
+            <input type="text" th:field="*{estado}" maxlength="1" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Nota de Crédito:</label>
+            <select th:field="*{notaCredito}" class="form-control">
+                <option th:each="nc : ${notasCredito}" th:value="${nc.id}" th:text="${nc.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Nota de Débito:</label>
+            <select th:field="*{notaDebito}" class="form-control">
+                <option th:each="nd : ${notasDebito}" th:value="${nd.id}" th:text="${nd.id}"></option>
+            </select>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/compras" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-primary ml-2">← Volver al inicio</a>
+        </div>
+    </form>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

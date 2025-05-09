@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Lista de Presupuestos</title></head>
+<body>
+<h1>Presupuestos de Compras</h1>
+<a th:href="@{/presupuestocompras/nuevo}">Nuevo Presupuesto</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Pedido</th>
+            <th>Proveedor</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Empleado</th>
+            <th>Sucursal</th>
+            <th>Condición</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${presupuestos}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.pedido.id}"></td>
+        <td th:text="${p.proveedor.nombre}"></td>
+        <td th:text="${p.fecha}"></td>
+        <td th:text="${p.estado}"></td>
+        <td th:text="${p.empleado.nombre}"></td>
+        <td th:text="${p.sucursal.nombre}"></td>
+        <td th:text="${p.condicion.descripcion}"></td>
+        <td>
+            <a th:href="@{/presupuestocompras/editar/{id}(id=${p.id})}">Editar</a> |
+            <a th:href="@{/presupuestocompras/eliminar/{id}(id=${p.id})}"
+               onclick="return confirm('¿Está seguro?')">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notas de Crédito - Compras</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Notas de Crédito de Compras</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/notacreditocompras/nuevo" class="btn btn-primary mb-3">Nueva Nota</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Compra</th>
+            <th>Proveedor</th>
+            <th>Fecha</th>
+            <th>Nro Nota</th>
+            <th>Timbrado</th>
+            <th>Estado</th>
+            <th>Empleado</th>
+            <th>Sucursal</th>
+            <th>Condición</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="n : ${notas}">
+            <td th:text="${n.id}"></td>
+            <td th:text="${n.compra.id}"></td>
+            <td th:text="${n.proveedor.nombre}"></td>
+            <td th:text="${n.fecha}"></td>
+            <td th:text="${n.nroNotaCredito}"></td>
+            <td th:text="${n.nroTimbrado}"></td>
+            <td th:text="${n.estado}"></td>
+            <td th:text="${n.empleado.nombre}"></td>
+            <td th:text="${n.sucursal.nombre}"></td>
+            <td th:text="${n.condicion.descripcion}"></td>
+            <td>
+                <a th:href="@{/notacreditocompras/editar/{id}(id=${n.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/notacreditocompras/eliminar/{id}(id=${n.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Eliminar nota?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

@@ -43,4 +43,10 @@ public class SucursalesServiceImpl implements SucursalesService {
 		}
 	}
 
+	@Override
+	public Object listarTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

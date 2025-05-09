@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aperturas y Cierres de Caja</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Aperturas y Cierres de Caja</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/aperturacierre/nuevo" class="btn btn-primary mb-3">Nuevo Registro</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Caja</th>
+            <th>Fecha Apertura</th>
+            <th>Hora Apertura</th>
+            <th>Monto Apertura</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${aperturas}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.caja.nombre}"></td>
+            <td th:text="${a.fechaApertura}"></td>
+            <td th:text="${a.horaApertura}"></td>
+            <td th:text="${a.montoApertura}"></td>
+            <td th:text="${a.estado}"></td>
+            <td>
+                <a th:href="@{/aperturacierre/editar/{id}(id=${a.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/aperturacierre/eliminar/{id}(id=${a.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

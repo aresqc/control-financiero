@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Ciudades</title>
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Ciudades</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/ciudades/form" class="btn btn-primary mb-3">Nueva Ciudad</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ciudad : ${ciudades}">
+            <td th:text="${ciudad.id}">1</td>
+            <td th:text="${ciudad.descripcion}">Ejemplo</td>
+            <td>
+                <a th:href="@{/ciudades/editar/{id}(id=${ciudad.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/ciudades/eliminar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${ciudad.id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

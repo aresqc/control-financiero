@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cobros</title>
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Registro de Cobros</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/cobros/nuevo" class="btn btn-primary mb-3">Nuevo Cobro</a>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Venta</th>
+            <th>Tipo Pago</th>
+            <th>Monto</th>
+            <th>Banco</th>
+            <th>Fecha Cheque</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${cobros}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.venta.id}"></td>
+            <td th:text="${c.tipoPago.descripcion}"></td>
+            <td th:text="${c.monto}"></td>
+            <td th:text="${c.banco.nombre}"></td>
+            <td th:text="${c.fechaCheque}"></td>
+            <td>
+                <a th:href="@{/cobros/editar/{id}(id=${c.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/cobros/eliminar/{id}(id=${c.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar cobro?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

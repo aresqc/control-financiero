@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Mercaderías</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Mercaderías</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/mercaderias/form" class="btn btn-primary mb-3">Nueva Mercadería</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Marca</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${mercaderias}">
+            <td th:text="${m.id}"></td>
+            <td th:text="${m.descripcion}"></td>
+            <td th:text="${m.marca.nombre}"></td>
+            <td th:text="${m.precioCompra}"></td>
+            <td th:text="${m.precioVenta}"></td>
+            <td>
+                <a th:href="@{/mercaderias/editar/{id}(id=${m.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/mercaderias/eliminar/{id}(id=${m.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

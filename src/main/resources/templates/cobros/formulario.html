@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Cobro</title>
+    <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${cobro.id == null ? 'Nuevo Cobro' : 'Editar Cobro'}"></h2>
+
+    <form th:action="@{/cobros/guardar}" th:object="${cobro}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Venta:</label>
+            <select th:field="*{venta}" class="form-control">
+                <option th:each="v : ${ventas}" th:value="${v.id}" th:text="${v.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo Pago:</label>
+            <select th:field="*{tipoPago}" class="form-control">
+                <option th:each="tp : ${tiposPago}" th:value="${tp.id}" th:text="${tp.descripcion}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Banco:</label>
+            <select th:field="*{banco}" class="form-control">
+                <option th:each="b : ${bancos}" th:value="${b.id}" th:text="${b.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Banco (Texto):</label>
+            <input type="text" th:field="*{bancoNombre}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Nro. Comprobante:</label>
+            <input type="text" th:field="*{nroComprobante}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha Cobro Cheque:</label>
+            <input type="date" th:field="*{fechaCobroCheque}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Monto:</label>
+            <input type="number" th:field="*{monto}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>TC:</label>
+            <input type="number" th:field="*{tc}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Seleccionado:</label>
+            <input type="text" th:field="*{seleccionado}" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label>Apertura/Cierre:</label>
+            <select th:field="*{aperturaCierre}" class="form-control">
+                <option th:each="a : ${aperturas}" th:value="${a.id}" th:text="${a.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha Cheque:</label>
+            <input type="date" th:field="*{fechaCheque}" class="form-control"/>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/cobros" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-primary ml-2">← Volver al inicio</a>
+        </div>
+    </form>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

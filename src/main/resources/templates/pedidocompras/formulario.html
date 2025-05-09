@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Pedido de Compra</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${pedido.id == null ? 'Nuevo Pedido de Compra' : 'Editar Pedido de Compra'}"></h2>
+
+    <form th:action="@{/pedidocompras/guardar}" th:object="${pedido}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Proveedor:</label>
+            <select th:field="*{proveedor}" class="form-control">
+                <option th:each="prov : ${proveedores}" th:value="${prov}" th:text="${prov.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha:</label>
+            <input type="date" th:field="*{fecha}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Estado:</label>
+            <input type="text" th:field="*{estado}" maxlength="1" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Empleado:</label>
+            <select th:field="*{empleado}" class="form-control">
+                <option th:each="emp : ${empleados}" th:value="${emp}" th:text="${emp.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Sucursal:</label>
+            <select th:field="*{sucursal}" class="form-control">
+                <option th:each="suc : ${sucursales}" th:value="${suc}" th:text="${suc.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Condición:</label>
+            <select th:field="*{condicion}" class="form-control">
+                <option th:each="cond : ${condiciones}" th:value="${cond}" th:text="${cond.descripcion}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Observación:</label>
+            <textarea th:field="*{observacion}" class="form-control"></textarea>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/pedidocompras" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-primary ml-2">← Volver al inicio</a>
+        </div>
+    </form>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

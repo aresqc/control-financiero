@@ -1,16 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Usuarios;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.models.Usuarios;
-
 public interface UsuariosService {
-	List<Usuarios> getAllUsuarios();
-
-	Optional<Usuarios> getUsuarioById(Long id);
-
-	void saveUsuarios(Usuarios usuario);
-
-	void deleteUsuarios(Long id);
+    List<Usuarios> listarTodos();
+    Optional<Usuarios> buscarPorId(Long id);
+    void guardar(Usuarios usuario);
+    void eliminar(Long id);
 }

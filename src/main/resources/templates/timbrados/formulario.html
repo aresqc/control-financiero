@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Timbrado</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${timbrado.id == null ? 'Nuevo Timbrado' : 'Editar Timbrado'}"></h2>
+
+    <form th:action="@{/timbrados/guardar}" th:object="${timbrado}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Nro Desde:</label>
+            <input type="number" th:field="*{nro_desde}" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Nro Hasta:</label>
+            <input type="number" th:field="*{nro_hasta}" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Nro 1:</label>
+            <input type="number" th:field="*{nro1}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Nro 2:</label>
+            <input type="number" th:field="*{nro2}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Nro 3:</label>
+            <input type="number" th:field="*{nro3}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Fecha Inicio:</label>
+            <input type="date" th:field="*{fecha_inicio}" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Fecha Fin:</label>
+            <input type="date" th:field="*{fecha_fin}" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>ID Tipo Documento:</label>
+            <input type="number" th:field="*{id_tipo_documento}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Estado:</label>
+            <input type="text" th:field="*{estado}" class="form-control" maxlength="3" />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/timbrados" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-primary ml-2">← Volver al inicio</a>
+        </div>
+    </form>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

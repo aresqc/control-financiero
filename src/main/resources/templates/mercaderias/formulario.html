@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Mercadería</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${mercaderia.id == null ? 'Nueva Mercadería' : 'Editar Mercadería'}"></h2>
+
+    <form th:action="@{/mercaderias/guardar}" th:object="${mercaderia}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Marca:</label>
+			<select th:field="*{marca.id}" class="form-control">
+			    <option th:each="m : ${marcas}" th:value="${m.id}" th:text="${m.nombre}"></option>
+			</select>
+        </div>
+
+          <div class="form-group">
+            <label>Descripción:</label>
+            <input type="text" th:field="*{descripcion}" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Procedencia:</label>
+            <input type="text" th:field="*{procedencia}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Afecta Existencia:</label>
+            <input type="text" th:field="*{afectaExistencia}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Precio Compra:</label>
+            <input type="number" th:field="*{precioCompra}" step="0.01" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Precio Venta:</label>
+            <input type="number" th:field="*{precioVenta}" step="0.01" class="form-control" />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/mercaderias" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-primary ml-2">← Volver al inicio</a>
+        </div>
+    </form>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

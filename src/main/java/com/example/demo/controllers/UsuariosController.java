@@ -1,71 +1,56 @@
 package com.example.demo.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.example.demo.models.Usuarios;
+import com.example.demo.services.RolesService;
+import com.example.demo.services.UsuariosService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.models.Roles;
-import com.example.demo.models.Usuarios;
-import com.example.demo.services.UsuariosService;
-import com.example.demo.services.impl.RolesServiceImpl;
-
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/usuarios")
+@RequestMapping("/usuarios")
 @AllArgsConstructor
 public class UsuariosController {
 
-	private UsuariosService usuariosService;
-	private RolesServiceImpl rolesServiceImpl;
+    private final UsuariosService usuariosService;
+    private final RolesService rolesService;
 
-	@GetMapping
-	public String listarUsuarios(Model model) {
-		model.addAttribute("usuarios", usuariosService.getAllUsuarios());
-		return "usuarios/listar";
-	}
+    @GetMapping
+    public String listarUsuarios(Model model) {
+        model.addAttribute("usuarios", usuariosService.listarTodos());
+        return "usuarios/listar";
+    }
 
-	@GetMapping("/form")
-	public String mostrarFormulario(Model model) {
-		List<Roles> roles = rolesServiceImpl.getAllRoles();
-		model.addAttribute("usuario", new Usuarios());
-		model.addAttribute("listadoRoles", roles);
+    @GetMapping("/form")
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("usuario", new Usuarios());
+        model.addAttribute("listadoRoles", rolesService.listarTodos());
+        return "usuarios/formulario";
+    }
 
-		return "usuarios/formulario";
-	}
+    @PostMapping("/guardar")
+    public String guardarUsuario(@ModelAttribute Usuarios usuario) {
+        usuariosService.guardar(usuario);
+        return "redirect:/usuarios";
+    }
 
-	@PostMapping("/guardar")
-	public String guardarUsuario(@ModelAttribute Usuarios usuario) {
-		usuariosService.saveUsuarios(usuario);
-		return "redirect:/usuarios";
-	}
+    @GetMapping("/editar/{id}")
+    public String editarUsuario(@PathVariable Long id, Model model) {
+        Optional<Usuarios> usuario = usuariosService.buscarPorId(id);
+        if (usuario.isPresent()) {
+            model.addAttribute("usuario", usuario.get());
+            model.addAttribute("listadoRoles", rolesService.listarTodos());
+            return "usuarios/formulario";
+        }
+        return "redirect:/usuarios";
+    }
 
-	@GetMapping("/editar/{id}")
-	public String editarUsuario(@PathVariable Long id, Model model) {
-
-		Optional<Usuarios> usuario = usuariosService.getUsuarioById(id);
-
-		if (usuario.isPresent()) {
-			List<Roles> roles = rolesServiceImpl.getAllRoles();
-			model.addAttribute("usuario", usuario.get());
-			model.addAttribute("listadoRoles", roles);
-			return "usuarios/formulario";
-		}
-
-		return "redirect:/usuarios";
-	}
-
-	@PostMapping("/eliminar")
-	public String eliminarUsuario(@RequestParam Long id) {
-		usuariosService.deleteUsuarios(id);
-		return "redirect:/usuarios";
-	}
+    @PostMapping("/eliminar")
+    public String eliminarUsuario(@RequestParam Long id) {
+        usuariosService.eliminar(id);
+        return "redirect:/usuarios";
+    }
 }

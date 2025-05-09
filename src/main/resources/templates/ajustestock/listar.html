@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajustes de Stock</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Ajustes de Stock</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/ajustestock/nuevo" class="btn btn-primary mb-3">Nuevo Ajuste</a>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Mercadería</th>
+            <th>Cantidad</th>
+            <th>Precio Compra</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${ajustes}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.mercaderia.descripcion}"></td>
+            <td th:text="${a.cantidad}"></td>
+            <td th:text="${a.precioCompra}"></td>
+            <td>
+                <a th:href="@{/ajustestock/editar/{id}(id=${a.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/ajustestock/eliminar/{id}(id=${a.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar ajuste?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>

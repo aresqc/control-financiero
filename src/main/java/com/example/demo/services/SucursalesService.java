@@ -14,4 +14,6 @@ public interface SucursalesService {
 	void save(Sucursales rol);
 
 	void delete(Long id);
+
+	Object listarTodos();
 }

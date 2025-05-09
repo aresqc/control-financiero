@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Timbrados</title>
+    <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Timbrados Registrados</h2>
+        <a href="/" class="btn btn-outline-primary">← Volver al inicio</a>
+    </div>
+
+    <a href="/timbrados/form" class="btn btn-primary mb-3">Nuevo Timbrado</a>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Nro Desde</th>
+            <th>Nro Hasta</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${listaTimbrados}">
+            <td th:text="${t.nro_desde}"></td>
+            <td th:text="${t.nro_hasta}"></td>
+            <td th:text="${t.fecha_inicio}"></td>
+            <td th:text="${t.fecha_fin}"></td>
+            <td th:text="${t.estado}"></td>
+            <td>
+                <a th:href="@{/timbrados/editar/{id}(id=${t.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/timbrados/eliminar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${t.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/sb-admin-2.min.js"></script>
+</body>
+</html>
